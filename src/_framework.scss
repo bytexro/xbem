@@ -1,0 +1,141 @@
+/**
+ * Variables & Settings
+ */
+$state-symbol: '\\+';
+$state: null !default;
+$parent: null !default;
+$placeholder-list: ();
+/**
+ *
+ */
+@function get-selector-list($_parent) {
+  $_selector-list: ();
+  $_whitespace-index: str-index($_parent, ' ');
+
+  @if ($_whitespace-index != null) {
+    $_first-part: str-slice($_parent, 1, $_whitespace-index - 1);
+    $_second-part: str-slice($_parent, $_whitespace-index + 1, str-length($_parent));
+    $_selector-list: unquote('#{$_first-part}#{$_second-part}');
+    $_selector-list: simple-selectors($_selector-list);
+  } @else {
+    $_selector-list: simple-selectors($_parent);
+  }
+
+  @return $_selector-list;
+}
+/**
+ *
+ */
+@function create-selector($_selector) {
+  $_final-selector: null;
+  @if ($state != null) {
+    @if ($parent != null) {
+      $_final-selector: selector-nest(#{selector-unify($state, $parent)}, $_selector);
+    } @else {
+      $_final-selector: selector-nest(#{$state}, $_selector);
+    }
+  } @else {
+    $_final-selector: $_selector;
+  }
+
+  @return $_final-selector;
+}
+/**
+ *
+ */
+@function extender-block($_block, $_namespace) {
+  $_extender: null;
+  @if ($_namespace != null) {
+    $_extender: unquote('#{str-slice($_namespace, 1, 1)}-#{$_block}');
+  } @else {
+    $_extender: $_block;
+  }
+
+  @return $_extender;
+}
+/**
+ * BEM Mixin For BLOCK
+ */
+@mixin block($_block, $_namespace: null) {
+  $_extender: extender-block($_block, $_namespace);
+
+  @at-root %#{$_extender} {
+    @content;
+  }
+
+  @at-root .#{$_extender} {
+    @extend %#{$_extender} !optional;
+  }
+}
+/**
+ * BEM Mixin For ELEMENT
+ */
+@mixin element($_element) {
+  $_extender: null;
+  $_selector-list: get-selector-list(unquote('#{&}'));
+
+  @each $_selector-item in $_selector-list {
+    @if (str-index($_selector-item, $state-symbol) == null) {
+      $_extender: str-slice($_selector-item, 2, str-length($_selector-item));
+    } @else {
+      $state: $_selector-item !global;
+      @if ($parent != null) {
+        $parent: & !global;
+      }
+    }
+  }
+
+  $_extender: unquote('#{$_extender}__#{$_element}');
+  @if (index($placeholder-list, $_extender) == null) { //we check if the placeholder is already present
+    $placeholder-list: append($placeholder-list, #{$_extender}) !global;
+
+    @at-root %#{$_extender} {
+      @content;
+    }
+  }
+
+  $_selector: unquote('.#{$_extender}');
+
+  @at-root #{create-selector($_selector)} {
+    //it will extend nothing if the placeholder didnt pass the above condition
+    @extend %#{$_extender} !optional;
+    @if ($state != null) {
+      @content;
+    }
+  };
+}
+/**
+ * BEM Mixin For MODIFIER
+ */
+@mixin modifier($_modifier) {
+  $_extender: null;
+  $_selector-list: get-selector-list(unquote('#{&}'));
+
+  @each $_selector-item in $_selector-list {
+    @if (str-index($_selector-item, $state-symbol) == null) {
+      $_extender: str-slice($_selector-item, 2, str-length($_selector-item));
+    }
+  }
+
+  $_selector: unquote('.#{$_extender}--#{$_modifier}');
+
+  @at-root #{create-selector($_selector)} {
+    @extend %#{$_extender} !optional;
+    @content;
+  };
+}
+/**
+ * BEM Mixin For STATE
+ */
+@mixin state($_state, $is-angular-state: false) {
+  $_selector: null;
+  @if ($is-angular-state == false) {
+    $_selector: selector-unify(&, str-insert(unquote('#{$state-symbol}#{$_state}'), '.', 1));
+  } @else {
+    $_selector: selector-unify(&, str-insert(unquote('#{$_state}'), '.', 1));
+  }
+
+  @at-root #{$_selector} {
+    @content;
+  }
+}

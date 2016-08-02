@@ -1,0 +1,23 @@
+/**
+ * Flexbox Container
+ */
+@mixin flex($inline: false, $wrap: nowrap, $direction: row, $justify: flex-start, $align: stretch) {
+  @if $inline == false {
+    display: flex;
+  } @else {
+    display: inline-flex;
+  }
+
+  @if $wrap != nowrap {
+    flex-wrap: $wrap;
+  }
+  @if $direction != row {
+    flex-direction: $direction;
+  }
+  @if $justify != flex-start {
+    justify-content: $justify;
+  }
+  @if $align != stretch {
+    align-items: $align;
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "xBEM",
+  "version": "0.0.1",
+  "description": "A framework for BEM methodology based on common sense and placeholders.",
+  "main": "index.scss",
+  "scripts": {},
+  "keywords": [
+    "scss",
+    "css",
+    "BEM"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bytexro/xBEM"
+  },
+  "author": "Prisecaru Bogdan",
+  "license": "MIT"
+}
