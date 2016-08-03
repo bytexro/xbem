@@ -1,0 +1,10 @@
+/**
+ * Used to overwrite local maps with those from themes
+ */
+@function update-map($map, $theme-map: null) {
+  @if ($theme-map != null) {
+    @return map-merge($map, $theme-map);
+  } @else {
+    @return $map;
+  }
+}

@@ -21,3 +21,37 @@
     align-items: $align;
   }
 }
+/**
+ * Mixin for flex grouping
+ */
+@mixin flexgroupof($value, $gutter: 20) {
+  $offset: $gutter * ($value - 1) + unquote('px');
+
+  @media handheld,only screen and (max-width: 767px) {
+    flex-direction: column;
+  }
+
+  > * {
+    width: calc((99% - #{$offset}) / #{$value});
+    margin: {
+      right:  ($gutter / 2) + unquote('px');
+      left:   ($gutter / 2) + unquote('px');
+      bottom: ($gutter / 2) + unquote('px');
+    }
+
+    &:nth-of-type(#{$value}n+1) {
+      margin-right: ($gutter / 2) + unquote('px');
+      margin-left: 0;
+    }
+
+    &:nth-of-type(#{$value}n + #{$value}n) {
+      margin-right: 0;
+      margin-left: ($gutter / 2) + unquote('px');
+    }
+
+    @media handheld,only screen and (max-width: 767px) {
+      width: 100%;
+      margin: 0;
+    }
+  }
+}
