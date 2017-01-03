@@ -139,3 +139,11 @@ $placeholder-list: ();
     @content;
   }
 }
+/**
+ * BEM Super Blocks that overwrite certain styles
+ */
+@mixin super($_superblock) {
+  .#{$_superblock} & {
+    @content;
+  }
+}
