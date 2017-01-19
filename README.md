@@ -20,7 +20,7 @@
 #### output
 
 ```
-.block {
+.menu {
   //styles here
   color: red;
 }
