@@ -20,6 +20,32 @@ ____            _                       ____                                    
 - No nesting beyond level 1(one) (except +state classes)
 
 
+## Installation
+
+* In your terminal:
+---
+```
+npm install --save xbem
+```
+* In your webpack project, use 'sass-loader' with the following option:
+
+webpack.config.js
+```
+{
+  loader: 'sass-loader',
+  options: {
+    includePaths: [
+      path.resolve('node_modules/xbem/src/')
+    ]
+  }
+}
+```
+example.scss (your sass file anywhere in the project)
+```
+@import 'xbem';
+```
+
+
 ## Usage
 ---
 ### Blocks
