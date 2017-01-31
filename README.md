@@ -21,9 +21,9 @@ ____            _                       ____                                    
 
 
 ## Installation
+---
 
 * In your terminal:
----
 ```
 npm install --save xbem
 ```
