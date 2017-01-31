@@ -25,33 +25,31 @@
  * Mixin for flex grouping
  */
 @mixin flexgroupof($value, $gutter: 20) {
+  @include flex($wrap: wrap);
   $offset: $gutter * ($value - 1) + unquote('px');
 
   @media handheld,only screen and (max-width: 767px) {
     flex-direction: column;
+    > * {
+      width: 100%;
+      margin: 0;
+    }
   }
 
   > * {
-    width: calc((99% - #{$offset}) / #{$value});
-    margin: {
-      right:  ($gutter / 2) + unquote('px');
-      left:   ($gutter / 2) + unquote('px');
-      bottom: ($gutter / 2) + unquote('px');
-    }
+    width: calc((100% - #{$offset}) / #{$value});
+    margin-right: ($gutter / 2) + unquote('px');
+    margin-left: ($gutter / 2) + unquote('px');
+    margin-bottom: ($gutter / 2) + unquote('px');
 
     &:nth-of-type(#{$value}n+1) {
       margin-right: ($gutter / 2) + unquote('px');
       margin-left: 0;
     }
 
-    &:nth-of-type(#{$value}n + #{$value}n) {
+    &:nth-of-type(#{$value}n+#{$value}) {
       margin-right: 0;
       margin-left: ($gutter / 2) + unquote('px');
-    }
-
-    @media handheld,only screen and (max-width: 767px) {
-      width: 100%;
-      margin: 0;
     }
   }
 }
