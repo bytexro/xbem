@@ -23,11 +23,11 @@ ____            _                       ____                                    
 ## Installation
 ---
 
-* In your terminal:
+In your terminal:
 ```
 npm install --save xbem
 ```
-* In your webpack project, use 'sass-loader' with the following option:
+In your webpack project, use 'sass-loader' with the following option:
 
 webpack.config.js
 ```
@@ -50,58 +50,50 @@ example.scss (your sass file anywhere in the project)
 ---
 ### Blocks
 
-* code
+code
 ```
-@include block(menu) {
-  // styles here
+@include block(menu) { // styles here
   color: red;
 }
 ```
-* output
+output
 ```
 .menu {
-  //styles here
   color: red;
 }
 ```
 
 ### Elements
 
-* code
+code
 ```
-@include block(menu) {
-  // styles here
+@include block(menu) { // styles here
   color: red;
 
   @include element(item) {
-    //styles here
     background-color: blue;
   }
 }
 ```
-* output
+output
 ```
 .menu {
-  //styles here
   color: red;
 }
 
 .menu__item {
-  //styles here
   background-color: blue;
 }
 ```
 
 ### Modifiers
 
-* code
+code
 ```
-@include block(menu) {
-  // styles here
+@include block(menu) { // styles here
   color: red;
 
   @include element(item) {
-    //styles here
     background-color: blue;
 
     @include modifier(big) {
@@ -110,20 +102,17 @@ example.scss (your sass file anywhere in the project)
   }
 }
 ```
-* output
+output
 ```
 .menu {
-  //styles here
   color: red;
 }
 
 .menu__item {
-  //styles here
   background-color: blue;
 }
 
 .menu__item, .menu__item--big {
-  //styles here
   background-color: blue;
 }
 
@@ -134,10 +123,9 @@ example.scss (your sass file anywhere in the project)
 
 ### States
 
-* code
+code
 ```
-@include block(menu) {
-  // styles here
+@include block(menu) { // styles here
   color: red;
 
   @include state(isHidden) {
@@ -145,10 +133,9 @@ example.scss (your sass file anywhere in the project)
   }
 }
 ```
-* output
+output
 ```
 .menu {
-  //styles here
   color: red;
 }
 
@@ -156,3 +143,12 @@ example.scss (your sass file anywhere in the project)
   display: none;
 }
 ```
+
+### Mixins
+> Not part of the B.E.M methodology
+> Just some usefull mixins to use in your SASS projects
+
+
+| Mixin | Codepen Link |
+| ------ | ------ |
+| flexgroupof | http://codepen.io/bogdan_bytex/pen/BWKWXa |

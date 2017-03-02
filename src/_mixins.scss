@@ -24,32 +24,28 @@
 /**
  * Mixin for flex grouping
  */
-@mixin flexgroupof($value, $gutter: 20) {
+@mixin flexgroupof($value, $gutter: 20, $isresponsive: false) {
   @include flex($wrap: wrap);
   $offset: $gutter * ($value - 1) + unquote('px');
 
-  @media handheld,only screen and (max-width: 767px) {
-    flex-direction: column;
-    > * {
-      width: 100%;
-      margin: 0;
+  @if $isresponsive == true {
+    @media handheld, only screen and (max-width: 767px) {
+      flex-direction: column;
+      > * { width: 100%; }
     }
   }
 
   > * {
     width: calc((100% - #{$offset}) / #{$value});
-    margin-right: ($gutter / 2) + unquote('px');
-    margin-left: ($gutter / 2) + unquote('px');
-    margin-bottom: ($gutter / 2) + unquote('px');
+    margin: ($gutter / 2) * 1px;
+    margin-top: 0;
 
     &:nth-of-type(#{$value}n+1) {
-      margin-right: ($gutter / 2) + unquote('px');
       margin-left: 0;
     }
 
     &:nth-of-type(#{$value}n+#{$value}) {
       margin-right: 0;
-      margin-left: ($gutter / 2) + unquote('px');
     }
   }
 }

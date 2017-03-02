@@ -1,3 +1,7 @@
+## Version 0.0.6
+* Added Mixins
+* Documentation update
+
 ## Version 0.0.5
 * Small issues and documentation update
 
