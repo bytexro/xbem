@@ -1,4 +1,21 @@
 /**
+ * Mixin for Responsiveness
+ */
+$breakpoints: (
+  desktop: '(min-width: 1200px)',
+  tablet: '(min-width: 768px) and (max-width: 1200px)',
+  phone: '(max-width: 767px)'
+);
+@mixin respondto($device) {
+  @each $name, $point in $breakpoints {
+    @if $name == $device {
+      @media #{$point} {
+        @content;
+      }
+    }
+  }
+}
+/**
  * Flexbox Container
  */
 @mixin flex($inline: false, $wrap: nowrap, $direction: row, $justify: flex-start, $align: stretch) {
