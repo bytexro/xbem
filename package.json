@@ -1,6 +1,6 @@
 {
   "name": "xbem",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A framework for BEM methodology based on common sense and placeholders.",
   "main": "index.js",
   "scripts": {},

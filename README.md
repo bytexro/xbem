@@ -9,8 +9,8 @@
 ---
 - Easy and intuitive mixins for writing [B.E.M](https://en.bem.info/methodology/) classes
 - Optimized output CSS
-- No need for more then 1(one) class per element (except +state classes)
-- No nesting beyond level 1(one) (except +state classes)
+- No need for more then one class per element (except *+state* classes)
+- No nesting beyond level one (except *+state* classes)
 
 
 ## Installation
@@ -19,6 +19,10 @@
 In your terminal:
 ```
 npm install --save xbem
+```
+or
+```
+npm install -S xbem
 ```
 In your webpack project, use 'sass-loader' with the following option:
 
@@ -37,22 +41,23 @@ example.scss (your sass file anywhere in the project)
 ```
 @import 'xbem';
 ```
+Webpack will resolve your import to *"node_modules/xbem/src/xbem"*
 
-
+#
 ## Usage
 ---
 ### Blocks
 
 code
 ```
-@include block(menu) { // styles here
-  color: red;
+@include block(humanbody) { // styles here
+ position: relative;
 }
 ```
 output
 ```
-.menu {
-  color: red;
+.humanbody {
+  position: relative;
 }
 ```
 
@@ -60,57 +65,70 @@ output
 
 code
 ```
-@include block(menu) { // styles here
-  color: red;
+@include block(humanbody) { // styles here
+  position: relative;
 
-  @include element(item) {
-    background-color: blue;
+  @include element(hand) {
+    height: 100px;
+  }
+  @include element(foot) {
+    height: 200px;
   }
 }
 ```
 output
 ```
-.menu {
-  color: red;
+.humanbody {
+  position: relative;
+}
+.humanbody__hand {
+  height: 100px;
+}
+.humanbody__foot {
+  height: 200px;
 }
 
-.menu__item {
-  background-color: blue;
-}
 ```
 
 ### Modifiers
 
 code
 ```
-@include block(menu) { // styles here
-  color: red;
+@include block(humanbody) { // styles here
+  position: relative;
 
-  @include element(item) {
-    background-color: blue;
+  @include element(hand) {
+    height: 100px;
 
-    @include modifier(big) {
-      font-size: 200%;
+    @include modifier(left) {
+      left: 0;
+    }
+  }
+  @include element(foot) {
+    height: 200px;
+
+    @include modifier(right) {
+      right: 0;
     }
   }
 }
 ```
 output
 ```
-.menu {
-  color: red;
+.humanbody {
+  position: relative;
 }
-
-.menu__item {
-  background-color: blue;
+.humanbody__hand--left, .humanbody__hand {
+  height: 100px;
 }
-
-.menu__item, .menu__item--big {
-  background-color: blue;
+.humanbody__hand--left {
+  left: 0;
 }
-
-.menu__item--big {
-  font-size: 200%;
+.humanbody__foot--right, .humanbody__foot {
+  height: 200px;
+}
+.humanbody__foot--right {
+  right: 0;
 }
 ```
 
@@ -118,25 +136,102 @@ output
 
 code
 ```
-@include block(menu) { // styles here
-  color: red;
+@include block(humanbody) { // styles here
+  position: relative;
 
-  @include state(isHidden) {
-    display: none;
+  @include state(issick) {
+    float: left;
   }
 }
 ```
 output
 ```
-.menu {
-  color: red;
+.humanbody {
+  position: relative;
 }
+.\+issick.humanbody {
+  float: left;
+}
+```
+#
+## A More Complex Example
+#
+code
+```
+@include block(humanbody) { // styles here
+  position: relative;
 
-.menu.\\+isHidden {
-  display: none;
+  @include element(hand) {
+    height: 100px;
+
+    @include modifier(left) {
+      left: 0;
+    }
+  }
+  @include element(foot) {
+    height: 200px;
+
+    @include modifier(right) {
+      right: 0;
+    }
+  }
+
+  @include state(issick) {
+    float: left;
+
+    @include element(hand) {
+      color: green;
+
+      @include modifier(left) {
+        overflow: hidden;
+      }
+    }
+
+    @include element(foot) {
+      color: green;
+
+      @include state(isbroken) {
+        display: flex;
+      }
+    }
+  }
 }
 ```
 
+output
+```
+.humanbody {
+  position: relative;
+}
+.humanbody__hand--left, .humanbody__hand, .\+issick .humanbody__hand, .\+issick .humanbody__hand--left {
+  height: 100px;
+}
+.humanbody__hand--left {
+  left: 0;
+}
+.humanbody__foot--right, .humanbody__foot, .\+issick .humanbody__foot {
+  height: 200px;
+}
+.humanbody__foot--right {
+  right: 0;
+}
+.\+issick.humanbody {
+  float: left;
+}
+.\+issick .humanbody__hand {
+  color: green;
+}
+.\+issick .humanbody__hand--left {
+  overflow: hidden;
+}
+.\+issick .humanbody__foot {
+  color: green;
+}
+.\+issick .humanbody__foot.\+isbroken {
+  display: flex;
+}
+```
+#
 ### Mixins
 > Not part of the B.E.M methodology
 > Just some usefull mixins to use in your SASS projects
