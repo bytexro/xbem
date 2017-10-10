@@ -1,3 +1,6 @@
+## Version 0.0.7
+* New repo update
+
 ## Version 0.0.6
 * Added Mixins
 * Documentation update
