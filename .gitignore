@@ -2,3 +2,4 @@
 *.css.map
 npm-debug.log
 src/_framework2.scss
+.idea
