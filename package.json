@@ -1,8 +1,8 @@
 {
   "name": "xbem",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "description": "A framework for BEM methodology based on common sense and placeholders.",
-  "main": "index.js",
+  "main": "./src/xbem.scss",
   "scripts": {},
   "keywords": [
     "scss",
